@@ -38,6 +38,10 @@ public class MavenLauncher extends Launcher {
 		ALL_SOURCE
 	}
 
+	public MavenLauncher(SpoonPom pom, SOURCE_TYPE sourceType) {
+		this(pom, sourceType, System.getenv().get("M2_HOME"), false);
+	}
+
 	/**
 	 * MavenLauncher constructor assuming either an environment
 	 * variable M2_HOME, or that mvn command exists in PATH.
@@ -96,6 +100,18 @@ public class MavenLauncher extends Launcher {
 		init(mavenProject, classpath);
 	}
 
+	public MavenLauncher(SpoonPom pom, SOURCE_TYPE sourceType, String mvnHome, boolean forceRefresh) {
+		this.sourceType = sourceType;
+		this.mvnHome = mvnHome;
+		this.forceRefresh = forceRefresh;
+		init(pom, null);
+	}
+
+	private void init(SpoonPom pom, String[] classpath) {
+		model = pom;
+		initAux(classpath);
+	}
+
 	private void init(String mavenProject, String[] classpath) {
 		File mavenProjectFile = new File(mavenProject);
 		if (!mavenProjectFile.exists()) {
@@ -108,6 +124,10 @@ public class MavenLauncher extends Launcher {
 			throw new SpoonException("Unable to read the pom", e);
 		}
 
+		initAux(classpath);
+	}
+
+	private void initAux(String[] classpath) {
 		// app source
 		if (SOURCE_TYPE.APP_SOURCE == sourceType || SOURCE_TYPE.ALL_SOURCE == sourceType) {
 			List<File> sourceDirectories = model.getSourceDirectories();
