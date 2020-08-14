@@ -54,7 +54,7 @@ public class CtCommentImpl extends CtStatementImpl implements CtComment {
 	@Override
 	public <E extends CtComment> E setContent(String content) {
 		getFactory().getEnvironment().getModelChangeListener().onObjectUpdate(this, CtRole.COMMENT_CONTENT, content, this.content);
-		this.content = cleanComment(content);
+		this.content = content;//this.content = cleanComment(content);
 		return (E) this;
 	}
 
@@ -62,7 +62,7 @@ public class CtCommentImpl extends CtStatementImpl implements CtComment {
 	 * FOR ADVANCED USAGE ONLY
 	 * Set the comment content, without cleaning the comment, if the cleaning behavior to get a canonical version does not work for you.
 	 * Does not ensure any AST contract such as calling the change listener
-	 * You have to cast your comment to CtCommentImpl, it's not beautiful, but it's known :-)
+	 * You have to cast your com ment to CtCommentImpl, it's not beautiful, but it's known :-)
 	 */
 	public <E extends CtComment> E _setRawContent(String content) {
 		this.content = content;
