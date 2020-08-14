@@ -15,7 +15,7 @@ import spoon.reflect.visitor.CtVisitor;
 
 import java.util.Objects;
 
-// import static spoon.support.compiler.jdt.JDTCommentBuilder.cleanComment;
+import static spoon.support.compiler.jdt.JDTCommentBuilder.cleanComment;
 
 public class CtCommentImpl extends CtStatementImpl implements CtComment {
 	private static final long serialVersionUID = 1L;
