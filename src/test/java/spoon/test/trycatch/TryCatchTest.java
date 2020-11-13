@@ -238,6 +238,10 @@ public class TryCatchTest {
 		CtCatchVariable<?> catchVariable = catchers.get(0).getParameter();
 
 		assertEquals(
+			catchVariable,
+			catchVariable.getReference().getParent());
+
+		assertEquals(
 				RuntimeException.class,
 				catchVariable.getType().getActualClass());
 
