@@ -41,6 +41,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static spoon.testing.utils.ModelUtils.buildClass;
@@ -102,6 +103,8 @@ public class CtTypeTest {
 	public void testIsSubTypeOf() throws Exception {
 		CtType<X> xCtType = buildClass(X.class);
 		CtType<?> yCtType = xCtType.getFactory().Type().get("spoon.test.ctType.testclasses.Y");
+
+		assertEquals(xCtType,xCtType.getReference().getParent());
 
 		assertFalse(xCtType.isSubtypeOf(yCtType.getReference()));
 		assertTrue(yCtType.isSubtypeOf(xCtType.getReference()));

@@ -371,6 +371,7 @@ public class TypeFactory extends SubFactory {
 				ref.addActualTypeArgument(formalTypeParam.getReference());
 			}
 		}
+		ref.setParent(type);
 		return ref;
 	}
 
