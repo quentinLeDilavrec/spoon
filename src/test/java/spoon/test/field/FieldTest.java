@@ -199,6 +199,8 @@ public class FieldTest {
 		field.setDefaultExpression(fieldRead);
 		klass.addField(field);
 
+		assertEquals(field, field.getReference().getParent());
+
 		launcher.getEnvironment().setAutoImports(true);
 		assertEquals("package foo;\n" +
 				"import java.io.File;\n" +

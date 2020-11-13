@@ -99,6 +99,7 @@ public class FieldFactory extends SubFactory {
 		final CtFieldReference<T> reference = createReference(factory.Type().createReference(field.getDeclaringType()), field.getType().clone(), field.getSimpleName());
 		reference.setFinal(field.hasModifier(ModifierKind.FINAL));
 		reference.setStatic(field.hasModifier(ModifierKind.STATIC));
+		reference.setParent(field);
 		return reference;
 	}
 
