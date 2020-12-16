@@ -29,6 +29,7 @@ import spoon.reflect.code.CtCase;
 import spoon.reflect.code.CtCatch;
 import spoon.reflect.code.CtCatchVariable;
 import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtFor;
 import spoon.reflect.code.CtForEach;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.code.CtStatementList;
@@ -191,14 +192,13 @@ public class PositionBuilder {
 				declarationSourceStart = bracketStart + 1;
 			}
 			CtElement parent = this.jdtTreeBuilder.getContextBuilder().getContextElementOnLevel(1);
-			if (parent instanceof CtForEach) {
-				CtForEach forEach = (CtForEach) parent;
+			if (parent instanceof CtForEach || parent instanceof CtFor) {
 				//compiler deliver wrong local variable position when for(...:...) starts with line comment
 				int parentStart = parent.getPosition().getSourceStart();
 				if (contents[parentStart] != 'f' || contents[parentStart + 1] != 'o' || contents[parentStart + 2] != 'r') {
 					return handlePositionProblem("Expected keyword for at offset: " + parentStart);
 				}
-				int bracketOff = findNextNonWhitespace(contents, forEach.getPosition().getSourceEnd(), parentStart + 3);
+				int bracketOff = findNextNonWhitespace(contents, parent.getPosition().getSourceEnd(), parentStart + 3);
 				if (bracketOff < 0 || contents[bracketOff] != '(') {
 					return handlePositionProblem("Expected character after \'for\' instead of \'(\' at offset: " + (parentStart + 3));
 				}

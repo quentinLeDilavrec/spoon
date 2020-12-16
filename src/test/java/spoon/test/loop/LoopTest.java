@@ -54,6 +54,15 @@ public class LoopTest {
 	}
 
 	@Test
+	public void testCommentBeforeForLoop() {
+		Launcher launcher = new Launcher();
+		launcher.addInputResource("./src/test/java/spoon/test/loop/testclasses/CommentBeforeFor.java");
+		CtModel model = launcher.buildModel();
+		CtFor ctFor = model.getElements(new TypeFilter<>(CtFor.class)).get(0);
+		assertTrue(ctFor.getForInit().get(0).getPosition().isValidPosition());
+	}
+
+	@Test
 	public void testForeachShouldHaveAlwaysABlockInItsBody() throws Exception {
 		final CtClass<Join> aType = build(Join.class, Condition.class).Class().get(Join.class);
 		final CtConstructor<Join> joinCtConstructor = aType.getConstructors().stream().findFirst().get();
