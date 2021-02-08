@@ -106,6 +106,9 @@ class TypeNameScope extends NameScopeImpl {
 		}
 
 		private int getOrderOfImportKind(CtImportKind ik) {
+			if (ik == null) {
+				return 0;
+			}
 			switch (ik) {
 			case ALL_STATIC_MEMBERS:
 				return 2;
